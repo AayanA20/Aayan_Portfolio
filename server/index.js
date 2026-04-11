@@ -6,9 +6,12 @@ const mongoose = require('mongoose');
 const app = express();
 
 // CORS — allow the frontend origin (Vercel in production, localhost in dev)
+const clientUrl = process.env.CLIENT_URL ? process.env.CLIENT_URL.replace(/\/$/, '') : 'http://localhost:5173';
+
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
-  methods: ['GET', 'POST'],
+  origin: [clientUrl, 'http://localhost:5173', 'https://aayan-ansari.vercel.app'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true,
 }));
 
 app.use(express.json());
